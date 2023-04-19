@@ -4,7 +4,7 @@ connection: "thelook"
 include: "/views/**/*.view"
 
 datagroup: mtrmisathelook_default_datagroup {
-  # sql_trigger: SELECT MAX(id) FROM etl_log;;
+  sql_trigger: SELECT CURDATE();;
   max_cache_age: "1 hour"
 }
 
@@ -109,10 +109,17 @@ explore: orders {
     type: left_outer
     sql_on: ${orders.user_id} = ${users.id} ;;
     relationship: many_to_one
+    fields: [users.state]
   }
 }
 
+explore: orders_items_extended {
+  extends: [order_items]
+  persist_for: "0 seconds"
+}
+
 explore: order_items {
+  view_name: order_items
   join: orders {
     type: left_outer
     sql_on: ${order_items.order_id} = ${orders.id} ;;
@@ -125,11 +132,11 @@ explore: order_items {
     relationship: many_to_one
   }
 
-  join: users {
-    type: left_outer
-    sql_on: ${orders.user_id} = ${users.id} ;;
-    relationship: many_to_one
-  }
+  # join: users {
+  #   type: left_outer
+  #   sql_on: ${orders.user_id} = ${users.id} ;;
+  #   relationship: many_to_one
+  # }
 
   join: products {
     type: left_outer
@@ -218,7 +225,8 @@ explore: ten_million_orders {
 
 explore: test {}
 
-explore: users {}
+explore: users {
+}
 
 explore: user_data {
   join: users {
