@@ -1,0 +1,23 @@
+{
+  "Comment": {
+    "comment": [
+      "The name of this file should be the associated locale code followed by '.strings.json'",
+      "There is one .strings.json file per locale.",
+      "Define your translated strings one key at a time demonstrated below",
+      "Keys can be any string; choose whatever scheme helps you stay organized",
+      "Then, set your Lookml label and description parameters to the desired key values.",
+      "To choose this file as the master key list and as the one to validate against",
+      "set its locale code ('ess') as the default_locale in the manifest file"
+    ],
+    "value": "Translation for Comment"
+  },
+  "City": {
+    "value": "Ciudad",
+    "comment": "Define your translated strings with a comment or array of comments as above"
+  },
+  " User-State ": "Estado",
+  "my.more.programmatic.key": "A Translation",
+  "Locale test": "Prueba Locale",
+  "": "Descripcion",
+  "Users": "Usuarios"
+}

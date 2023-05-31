@@ -1,6 +1,6 @@
 view: users {
   sql_table_name: demo_db.users ;;
-  drill_fields: [id]
+  # drill_fields: [id]
 
   dimension: id {
     primary_key: yes
@@ -22,6 +22,31 @@ view: users {
     type: string
     map_layer_name: countries
     sql: ${TABLE}.country ;;
+  }
+
+  dimension: timezone_test {
+    type: string
+    sql: CONVERT_TZ(${created_time},'GMT','MET') ;;
+  }
+
+  dimension: timezone_test2 {
+    type: string
+    sql: CONVERT_TZ(${created_time},'GMT','{{_user_attributes["timezone"]}}') ;;
+  }
+
+  parameter: date_test {
+    type: unquoted
+    default_value: "8"
+  }
+
+  dimension: test_time {
+    type: string
+    # sql: DATE_ADD(${created_date}, INTERVAL {% parameter date_test %} HOUR) ;;
+    sql: ${created_date} ;;
+    html: <p>{% assign date = value %}
+          {% assign seconds = 5 | times: 24 | times: 60 | times: 60 %}
+          {{ date | date: "%s" | plus: seconds | date: "%Y-%m-%d" }} <p/>;;
+    # timeframes: [month, quarter, week, year]
   }
 
   dimension_group: created {
@@ -74,6 +99,13 @@ view: users {
 
   filter: testing {
     type: string
+  }
+
+  dimension: state_3 {
+    type: string
+    sql: concat("Backslash \&#92; ",${TABLE}.state, "'s") ;;
+    html: <p>{{value}}</p> ;;
+    # sql: concat("Backslash \\ ",${TABLE}.state, "'s");;
   }
 
 
